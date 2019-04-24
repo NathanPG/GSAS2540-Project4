@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")
         {
             //GetComponent<Animator>().
             GetComponent<SpriteRenderer>().sprite = hurt;
