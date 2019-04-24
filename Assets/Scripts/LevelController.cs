@@ -124,15 +124,18 @@ public class LevelController : MonoBehaviour
         }
     }
 
-
     //click pause button
     public void PauseMenu()
     {
-        Time.timeScale = 0;
-        pmenu.SetActive(true);
         if (pmenu.activeInHierarchy)
         {
+            Time.timeScale = 1;
             pmenu.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 0;
+            pmenu.SetActive(true);
         }
     }
 

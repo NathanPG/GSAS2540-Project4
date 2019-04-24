@@ -19,6 +19,12 @@ public class EndController : MonoBehaviour
         
     }
 
+    //click menu button
+    public void backtomenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     //click quit button
     public void GameQuit()
     {

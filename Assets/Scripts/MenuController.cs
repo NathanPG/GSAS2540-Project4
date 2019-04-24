@@ -87,18 +87,19 @@ public class MenuController : MonoBehaviour
     //click pause button
     public void PauseMenu()
     {
-        Time.timeScale = 0;
-        pmenu.SetActive(true);
         if (pmenu.activeInHierarchy)
         {
             pmenu.SetActive(false);
+        }
+        else
+        {
+            pmenu.SetActive(true);
         }
     }
 
     //click cross button in pause menu
     public void resumegame()
     {
-        Time.timeScale = 1;
         pmenu.SetActive(false);
     }
 
