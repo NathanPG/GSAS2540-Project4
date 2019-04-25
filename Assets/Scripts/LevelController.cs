@@ -110,18 +110,15 @@ public class LevelController : MonoBehaviour
                 time = 0;
             }
         }
-        if(time == 0)
+        if(time == 0 || life == 0)
         {
             //fail
+            //score = coinscore
             UpdateScore(score);
             StartCoroutine("Gameover");
         }
-        if(life == 0)
-        {
-            //fail
-            UpdateScore(score);
-            StartCoroutine("Gameover");
-        }
+        //Arrived Home
+        //If arrived score = 1000*(5-life) + coin_score + (200-time) * 10.
     }
 
     //click pause button
