@@ -7,13 +7,17 @@ public class Player : MonoBehaviour
     int direction;
     public LevelController level;
     Vector3 checkpoint;
+    public AudioSource jumpsfx;
+    public AudioSource hurtsfx;
     public float movespeed;
     public float jumpforce;
     public Sprite hurt;
+    public bool hurted = false;
 
     // Start is called before the first frame update
     void Awake()
     {
+        hurted = false;
         checkpoint = new Vector3(-4.59f, -2.39f, -5f);
         direction = 0;
         GetComponent<Animator>().SetBool("isWalking", false);
@@ -27,9 +31,13 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")
+        if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Trap")&& hurted == false)
         {
-            //GetComponent<Animator>().
+            hurted = true;
+            if (PlayerPrefs.GetInt("isSfxOn") == 1)
+            {
+                hurtsfx.Play();
+            }
             GetComponent<SpriteRenderer>().sprite = hurt;
             isHurt?.Invoke();
             //GAME NOT OVER
@@ -45,6 +53,7 @@ public class Player : MonoBehaviour
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);
+        hurted = false;
         GetComponent<Animator>().SetBool("isDead", false);
         transform.position = checkpoint;
         isIn?.Invoke();
@@ -67,12 +76,11 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
         Vector3 pos = transform.position;
         //move left
         GetComponent<Animator>().SetBool("isWalking", false);
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && hurted == false)
         {
             if (GetComponent<Animator>().GetBool("isJumping") == false)
             {
@@ -90,7 +98,7 @@ public class Player : MonoBehaviour
             }
         }
         //move right
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) && hurted == false)
         {
             if (GetComponent<Animator>().GetBool("isJumping") == false)
             {
@@ -109,8 +117,12 @@ public class Player : MonoBehaviour
         }
 
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && GetComponent<Animator>().GetBool("isJumping") == false)
+        if (Input.GetKeyDown(KeyCode.Space) && GetComponent<Animator>().GetBool("isJumping") == false && hurted == false)
         {
+            if (PlayerPrefs.GetInt("isSfxOn") == 1)
+            {
+                jumpsfx.Play();
+            }
             GetComponent<Animator>().SetTrigger("Jump");
             GetComponent<Animator>().SetBool("isJumping", true);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpforce), ForceMode2D.Impulse);

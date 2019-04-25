@@ -11,43 +11,29 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    //public Information info;
-    //public bool isGameStart = false;
-    //public bool isFirstScene = true;
-    //public bool isGameend = false;
-    
+    public AudioSource clicksfx;
+    public AudioSource closesfx;
     public GameObject pmenu;
-    //public GameObject mainmenu;
-    //public GameObject EndMenu;
     public GameObject hsmenu;
     public Text hstext;
 
-    private void OnEnable()
-    {
-        //Information.openmenu += pausemenu;
-    }
-
-    public void pausemenu()
-    {
-        Time.timeScale = 0;
-        pmenu.SetActive(true);
-    }
-
-    ////click start button
+    //click start button
     public void GameStart()
     {
-        //isFirstScene = true;
+        if (PlayerPrefs.GetInt("isSfxOn") == 1)
+        {
+            clicksfx.Play();
+        }
         SceneManager.LoadScene("PlayingScene");
-        //regularui.SetActive(true);
-        //mainmenu.SetActive(false);
-        //info.score = 0;
-        //info.life = 3;
-        //info.updatescore();
-        //info.updatelife();
+
     }
     //click quit button
     public void GameQuit()
     {
+        if (PlayerPrefs.GetInt("isSfxOn") == 1)
+        {
+            closesfx.Play();
+        }
         Application.Quit();
     }
 
@@ -74,6 +60,10 @@ public class MenuController : MonoBehaviour
     //click high score button
     public void DisplayHighScore()
     {
+        if (PlayerPrefs.GetInt("isSfxOn") == 1)
+        {
+            clicksfx.Play();
+        }
         hstext.text = PlayerPrefs.GetString("High Score Text");
         hsmenu.SetActive(true);
     }
@@ -81,6 +71,10 @@ public class MenuController : MonoBehaviour
     //click cross button in highscore menu
     public void closeHS()
     {
+        if (PlayerPrefs.GetInt("isSfxOn") == 1)
+        {
+            closesfx.Play();
+        }
         hsmenu.SetActive(false);
     }
 
@@ -89,10 +83,18 @@ public class MenuController : MonoBehaviour
     {
         if (pmenu.activeInHierarchy)
         {
+            if (PlayerPrefs.GetInt("isSfxOn") == 1)
+            {
+                closesfx.Play();
+            }
             pmenu.SetActive(false);
         }
         else
         {
+            if (PlayerPrefs.GetInt("isSfxOn") == 1)
+            {
+                clicksfx.Play();
+            }
             pmenu.SetActive(true);
         }
     }
@@ -100,28 +102,12 @@ public class MenuController : MonoBehaviour
     //click cross button in pause menu
     public void resumegame()
     {
+        if (PlayerPrefs.GetInt("isSfxOn") == 1)
+        {
+            closesfx.Play();
+        }
         pmenu.SetActive(false);
     }
-
-    ////click restart button in the last scene
-    //public void Restart()
-    //{
-    //    smsgobject.SetActive(true);
-    //    regularui.SetActive(true);
-    //    SceneManager.LoadScene("PlayingScene");
-    //    info.score = 0;
-    //    info.life = 3;
-    //    info.time = 60;
-    //    info.updatescore();
-    //    info.updatelife();
-    //    isFirstScene = true;
-    //    HSmenu.SetActive(false);
-    //    EndMenu.SetActive(false);
-    //    wmsgobject.SetActive(false);
-    //    fmsgobject.SetActive(false);
-    //}
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -129,50 +115,5 @@ public class MenuController : MonoBehaviour
         checkscore();
         hsmenu.SetActive(false);
         pmenu.SetActive(false);
-        //regularui.SetActive(false);
-        //smsgobject.SetActive(false);
-        //wmsgobject.SetActive(false);
-        //fmsgobject.SetActive(false);
-        //isGameStart = false;
-        //isFirstScene = false;
-        //EndMenu.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //    if ((info.time <= 0 || info.life == 0) && isGameStart)
-        //    {
-        //        SceneManager.LoadScene("EndScene");
-        //        EndMenu.SetActive(true);
-        //        if(info.life == 0)
-        //        {
-        //            fmsgobject.SetActive(true);
-        //        }
-        //        else
-        //        {
-        //            wmsgobject.SetActive(true);
-        //        }
-        //        info.UpdateScore(info.score);
-        //        info.DisplayScore();
-        //        //EnemySpawner destroied
-        //        info.respawning = false;
-        //        info.clearscreen = false;
-        //        HSmenu.SetActive(true);
-        //        regularui.SetActive(false);
-        //        isGameStart = false;
-        //    }
-        //    //first start
-        //    else if (isFirstScene)
-        //    {
-        //        info.time = 60;
-        //        smsgobject.SetActive(true);
-        //        if (Input.GetMouseButton(0))
-        //        {
-        //            isGameStart = true;
-        //            isFirstScene = false;
-        //            smsgobject.SetActive(false);
-        //        }
-        //    }
     }
 }
