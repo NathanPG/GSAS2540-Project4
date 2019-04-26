@@ -8,6 +8,7 @@ public class GameAudio : MonoBehaviour
     public AudioSource music;
     public AudioSource jump;
     public AudioSource hurt;
+    public AudioSource collect;
     public Slider MusicSlider;
     public Slider SfxSlider;
     public Toggle mutemusic;
@@ -25,6 +26,7 @@ public class GameAudio : MonoBehaviour
     {
         jump.volume = SfxSlider.value;
         hurt.volume = SfxSlider.value;
+        collect.volume = SfxSlider.value;
         PlayerPrefs.SetFloat("sfx", SfxSlider.value);
     }
 
@@ -50,12 +52,14 @@ public class GameAudio : MonoBehaviour
         {
             jump.volume = 0f;
             hurt.volume = 0f;
+            collect.volume = 0f;
             PlayerPrefs.SetInt("isSfxOn", 0);
         }
         else
         {
             jump.volume = PlayerPrefs.GetFloat("sfx");
             hurt.volume = PlayerPrefs.GetFloat("sfx");
+            collect.volume = PlayerPrefs.GetFloat("sfx");
             PlayerPrefs.SetInt("isSfxOn", 1);
         }
     }
@@ -69,6 +73,7 @@ public class GameAudio : MonoBehaviour
             SfxSlider.value = PlayerPrefs.GetFloat("sfx");
             jump.volume = SfxSlider.value;
             hurt.volume = SfxSlider.value;
+            collect.volume = SfxSlider.value;
         }
         else
         {
@@ -76,6 +81,7 @@ public class GameAudio : MonoBehaviour
             SfxSlider.value = 1f;
             jump.volume = SfxSlider.value;
             hurt.volume = SfxSlider.value;
+            collect.volume = SfxSlider.value;
         }
 
         //music volume

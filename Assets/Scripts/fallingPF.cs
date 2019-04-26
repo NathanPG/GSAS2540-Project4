@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class fallingPF : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            GetComponent<Rigidbody2D>().WakeUp();
+        }
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

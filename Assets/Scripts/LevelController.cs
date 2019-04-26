@@ -50,7 +50,7 @@ public class LevelController : MonoBehaviour
     //Add score by 10
     public void addscore()
     {
-        score += 10;
+        score += 100;
         scoredisplay.text = string.Format("scores:{0,4}", score);
     }
 
@@ -60,8 +60,13 @@ public class LevelController : MonoBehaviour
         life -= 1;
         lifedisplay.text = string.Format("life:{0,4}/3", life);
     }
-    
-    
+    //Add one life
+    public void addLife()
+    {
+        life += 1;
+        lifedisplay.text = string.Format("life:{0,4}", life);
+    }
+
 
     //Update playerpref of score
     public void UpdateScore(int currentscore)
@@ -118,7 +123,7 @@ public class LevelController : MonoBehaviour
             StartCoroutine("Gameover");
         }
         //Arrived Home
-        //If arrived score = 1000*(5-life) + coin_score + (200-time) * 10.
+        //If arrived score = 1000*life + coin_score + (200-time) * 10.
     }
 
     //click pause button
