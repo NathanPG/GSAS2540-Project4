@@ -117,7 +117,9 @@ public class Player : MonoBehaviour
         }
 
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && GetComponent<Animator>().GetBool("isJumping") == false && hurted == false)
+        //Player can jump even in the air, but not double jump
+        if (Input.GetKeyDown(KeyCode.Space) && GetComponent<Animator>().GetBool("isJumping") == false 
+            && hurted == false)
         {
             if (PlayerPrefs.GetInt("isSfxOn") == 1)
             {
