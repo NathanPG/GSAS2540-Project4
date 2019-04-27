@@ -17,13 +17,19 @@ public class LevelController : MonoBehaviour
     public Text scoredisplay;
     public Text lifedisplay;
     public Text timedisplay;
+    public GameObject player;
+    public GameObject eaglepre;
+    bool GAMEEND = false;
+    bool spawnstart = false;
   
     private void Awake()
     {
         fadein();
         score = 0;
         life = 3;
-        time = 200;
+        time = 200f;
+        GAMEEND = false;
+        spawnstart = false;
     }
     public void fadeout()
     {
@@ -72,7 +78,7 @@ public class LevelController : MonoBehaviour
     public void UpdateScore(int currentscore)
     {
         string tempstring = "";
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 5; i++)
         {
             tempstring = "High Score " + i + ": ";
             if (PlayerPrefs.GetInt(tempstring) < currentscore)
@@ -115,15 +121,41 @@ public class LevelController : MonoBehaviour
                 time = 0;
             }
         }
-        if(time == 0 || life == 0)
+        if((time == 0 || life == 0) && !GAMEEND)
         {
             //fail
-            //score = coinscore
+            GAMEEND = true;
             UpdateScore(score);
+            SaveScore();
             StartCoroutine("Gameover");
         }
         //Arrived Home
-        //If arrived score = 1000*life + coin_score + (200-time) * 10.
+        //If arrived score = score + 1000 * life + time * 10.
+        if (player.transform.position.x>=121 && !GAMEEND)
+        {
+            GAMEEND = true;
+            score += 1000 * life;
+            score += (int)time * 10;
+            UpdateScore(score);
+            SaveScore();
+            StartCoroutine("Gameover");
+        }
+        if(player.transform.position.x >=67f && !spawnstart)
+        {
+            spawnstart = true;
+            InvokeRepeating("inseagle", 5f, 5f);
+        }
+        if(player.transform.position.x >= 120f && spawnstart)
+        {
+            CancelInvoke();
+        }
+    }
+
+    void inseagle()
+    {
+        float x = Random.Range(60f, 90f);
+        Vector3 pos = new Vector3(x, player.transform.position.y + 10f, -5f);
+        Instantiate(eaglepre, pos, Quaternion.identity);
     }
 
     //click pause button

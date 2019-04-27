@@ -152,16 +152,19 @@ public class Player : MonoBehaviour
         }
 
         //UPDATE CHECKPOINT
-        if(pos.x == 1f)
+        if(pos.x >= 21f)
         {
-            //SHOW A MSG
-        }else if (pos.x == 2f)
-        {
-            //SHOW A MSG
+            //TODO:SHOW A MSG
+            checkpoint = new Vector3(21.53f, -0.39f, -5f);
         }
-        else if (pos.x == 3f)
+        else if (pos.x >= 67f)
         {
-            //SHOW A MSG
+            //YODO:SHOW A MSG
+            checkpoint = new Vector3(67.53f, 22.53f, -5f);
         }
+        //else if (pos.x == 3f)
+        //{
+        //    //SHOW A MSG
+        //}
     }
 }

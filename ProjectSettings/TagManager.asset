@@ -8,14 +8,12 @@ TagManager:
   - BGM
   - score
   - lives
-  - EndMenu
-  - WinMsg
-  - FailMsg
   - Ground
-  - miss
   - destroy
   - Enemy
   - Trap
+  - collect
+  - controller
   layers:
   - Default
   - TransparentFX
