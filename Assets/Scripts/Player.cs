@@ -154,12 +154,12 @@ public class Player : MonoBehaviour
         }
 
         //UPDATE CHECKPOINT
-        if(pos.x >= 21f)
+        if(pos.x >= 21f && pos.x < 63f)
         {
             //TODO:SHOW A MSG
             checkpoint = new Vector3(21.53f, -0.39f, -5f);
         }
-        else if (pos.x >= 67f)
+        if (pos.x >= 63f)
         {
             //YODO:SHOW A MSG
             checkpoint = new Vector3(67.53f, 22.53f, -5f);
